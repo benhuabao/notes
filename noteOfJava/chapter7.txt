@@ -1,0 +1,7 @@
+java的集合可以分为大致三类：1）Set,2)List,3)Map。
+	1）Set代表无序，不可重复的集合，
+	2）List有序，可以重复
+	3）Map代表有映射关系
+Java的集合都是两个接口Collectio（Set,List，Queue）和Map(HashMap,Hashtable等)派生而来的，
+如果要访问List中的元素，可以访问索引；如果要访问Set，只能访问Set中的元素；如果要访问Map中的
+元素，可以根据key来访问value
