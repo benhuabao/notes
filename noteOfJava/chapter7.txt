@@ -7,9 +7,9 @@ Java的集合都是两个接口Collectio（Set,List，Queue）和Map(HashMap,Has
 元素，可以根据key来访问value。重要的类有HashSet,HashMap,Hashtable,ArrayList等。
 
 Iterator遍历集合元素
-Iterator主要用于遍历Collection中的元素，也称迭代器。接口中有三种方法：1:hasNext()如果元素还没遍历完，返回true,2:next()返回集合的下一个元素,remove()
-删除上次next方法返回的元素。注意：当使用Iterator访问Collection的时候，只有通过Iterator的remove方法删除上一次next返回的集合元素才行，不然会引起冲突。
-（个人理解：在Iterator操作集合的时候，集合是不能自己进行修改的，不然双方修改就会冲突）
+Iterator主要用于遍历Collection中的元素，也称迭代器。接口中有三种方法：1:hasNext()如果元素还没遍历完，返回true,2:next()返回集合的下一个元
+素,remove()删除上次next方法返回的元素。注意：当使用Iterator访问Collection的时候，只有通过Iterator的remove方法删除上一次next返回的集合元
+素才行，不然会引起冲突。（个人理解：在Iterator操作集合的时候，集合是不能自己进行修改的，不然双方修改就会冲突）
 
 foreach循环遍历集合：
 foreach更加方便快捷，经常使用
