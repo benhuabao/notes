@@ -49,8 +49,10 @@ HashMap和Hashtable实现类
 这是两个最经典的实现类，区别：1，Hashtable线程安全，因此性能低一些，尽量少用，即使需要创建线程安全的Map类，也可以使用Collections工具类把
 HashMap变成线程安全的,2，Hashtable不允许null作为kv，会引发空指针异常，HashMap可以使用null作为键与值
 因为key不能有重复，所以key必须要实现hashcode方法和equals方法，判断连两个key相等的标准：1，两个key通过equals方法返回的方法是true，2，通过hashcode返回的值一样
+HashMap和Hashtable与HashSet相似,尽量不要使用可变对象作为key.
 
 
 HashSe和HashMap的性能选项
-对于HashSet以及其子类来首，采用hash算法来决定元素的存贮位置（元素不能重合）
+对于HashSet以及其子类来说，采用hash算法来决定元素的存贮位置（元素不能重合）,对于HashMap和Hashtable以及其子类来说,采用hash算法决定key的存储
+(key不能相同)
 
