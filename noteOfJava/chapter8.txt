@@ -7,3 +7,5 @@ java集合有一个缺点，我们把对象放进集合里面后，再次取出�
 举例　List<String> ls = new ArrayList<String>();
 
 所谓泛型：就是允许在定义类.接口时指定类型形参
+创建了一个定义带泛型声明的类Apple<T>类,实际使用Apple类时,会为T这个形参传入实际的参数类型,这样就可以生成<String><Integer>等,这就是List接口
+的子类可以使用泛型的原因
