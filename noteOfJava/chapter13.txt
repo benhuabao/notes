@@ -1,0 +1,9 @@
+jdbc编程步骤
+1,加载数据库驱动
+2,创建并且取得数据库连接
+3,创建jdbc statement对象
+4,设置sql语句
+5,设置sql语句中的参数(使用preparedStatement)
+6,通过statement执行sql语句获取结果
+7,对sql执行结果进行解析处理
+8,释放资源
