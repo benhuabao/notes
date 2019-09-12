@@ -1,0 +1,39 @@
+adb logcat -b radio //通信系统的log (我们经常用到)
+adb logcat -b system  //输出系统组件的log
+adb logcat -b events  //输出Event模块的log
+adb logcat -b main  //所有Java层的log
+
+-------------------------------------------------------
+logcat命令参数
+	-b	加载一个可使用的日志缓冲区供查看,默认值是main
+	-v	设置输出格式的日志消息,默认是短暂的格式
+	-c	清除缓存区中的全部日志并退出
+	-d	将缓冲区的log转存到屏幕中然后退出
+	-g	打印日志缓存区的大小并退出
+	-s	过滤器
+
+-------------------------------------------------------	
+logcat格式化输出,使用-v选项来指定一个支持的输出格式.
+	process	只显示PID	
+	tag	只显示优先级
+	raw	显示原始的日志消息
+	time	显示调用日期,时间,优先级,标签和过程的PID发出消息
+	threadtime	显示调用日期时间,优先级,变迁以及,PID发出的消息
+	long	显示所有元数据与空白行和单独的消息
+
+-------------------------------------------------------
+logcat优先级
+优先级使用字符标识,以下优先级从低到高
+V	verbose最低优先级
+D	debug
+I	info
+W	warning
+E	error
+F	fatal
+S	silent
+
+为了减少不要的日志输出,可以建立一个过滤器,过滤语法:tag:priority
+举例:adb logcat ActivityManager:I my App:D *:S
+adb logcat *:W 过滤级别为W以上
+
+
