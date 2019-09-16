@@ -39,5 +39,15 @@ JDBC提供了独立于数据库的统一API,用以执行SQL命令,主要由以�
 
 3,Statement,用于执行SQL语句的工具接口.常用方法如下:
 1)ResultSet executeQuery(String sql) throws SQLException;查询语句,并且返回查询结果对应的ResultSet对象
+2)int executeUpdate(String sql) throws SQLException;执行SQL语句,返回受影响的行数
 
+PreparedStatement对象
+1)预编译的Statement对象,是Statement的子接口,它允许预编译SQL语句,后续只需要改变参数,避免了每次都需要编译的问
+题,因此性能更好,它比Statement多设置参数的方法:void setNull(int parameterIndex, int sqlType) throws
+SQLException;传入参数.	
+
+ResultSet结果集
+结果集可以通过列索引或列名获得列数据,他们的常用方法如下:
+1)next():将记录指针定位到下一行,如果有有效记录,方法返回true
+2)getXXX():通过索引或者列名来获得查询结果集中某些值
 
