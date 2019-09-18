@@ -1,0 +1,8 @@
+O上的方法在P版本上已经没有,P版本不能直接按照O的修改Porting的情况(括号内为NITZ的Porting举例)
+	1:在O上找到修改的代码所属的方法,然后找到调用该方法的方法(所属fixTimeZone(),被pollStateDone()调用)
+	2:在P上找到调用方法(pollStateDone()),根据代码逻辑找到相对应的,处理相关逻辑的代码(根据注释update -
+TimeZone/方法名等,找到 mNitzState.handleNetworkCountryCodeSet(countryChanged);),
+	3:跳转到对应的类的方法(NitzStateMachine.java的handleNetworkCountryCodeSet(countryChanged)),继续
+找相对应的修改的地方,
+	4:和O修改的地方继续对应,找到了应该修改代码的地方
+	5:具体修改(现在卡着的)
