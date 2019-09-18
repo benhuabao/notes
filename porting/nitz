@@ -7,14 +7,17 @@ TimeZone/方法名等,找到 mNitzState.handleNetworkCountryCodeSet(countryChang
 	4:和O修改的地方继续对应,找到了应该修改代码的地方
 	5:具体修改(前面有情形同样调用了相同的代码,参考其修改后的代码,最简单的就是直接将那段代码直接复制到
 需要修改处.)
-	6:按样子修改以后,编译报错(frameworks/opt/telephony/src/java/com/android/internal/telephony/NitzStateMachine.java:354: 错误: 无法从静态上下文中引用非静态 方法 lookupByNitz(NitzData)),因为OPUtils.
+	6:按样子修改以后,编译报错(frameworks/opt/telephony/src/java/com/android/internal/telephony/NitzStateMachine.java:354: 
+错误: 无法从静态上下文中引用非静态 方法 lookupByNitz(NitzData)),因为OPUtils.
 isATT()是静态方法,而前文直接照搬的代码是非静态
 	7:继续看照搬代码的逻辑()
-OffsetResult lookupResult = mTimeZoneLookupHelper.lookupByNitz(mLatestNitzSignal.mValue);
-zoneId = lookupResult != null ? lookupResult.zoneId : null;
-	8:跳转到TimeZoneLookupHelper类,看到了最终调用的静态方法,就直接调用那个方法lookupByNitzStatic(NitzData nitzData),(但是又报错了,因为是这虽然是一个static方法,但是是private的)
-	9,因此需要找一个static的,并且在调用lookupByNitzStatic(NitzData nitzData)方法的方法,满足条件的只有static TimeZone guessZoneByNitzStatic(NitzData nitzData)
+OffsetResult lookupResult = mTimeZoneLookupHelper.lookupByNitz(mLatestNitzSignal.mValue);zoneId = lookupResult != null ? 
+lookupResult.zoneId : null;
+	8:跳转到TimeZoneLookupHelper类,看到了最终调用的静态方法,就直接调用那个方法lookupByNitzStatic(NitzData nitzData),(但是又报
+错了,因为是这虽然是一个static方法,但是是private的)
+	9,因此需要找一个static的,并且在调用lookupByNitzStatic(NitzData nitzData)方法的方法,满足条件的只有static TimeZone 
+guessZoneByNitzStatic(NitzData nitzData)
 	10:因此需要将Porting处需要填入guessZoneByNitzStatic方法
-	11:zoneId = ?的语句确认,因为guessZoneByNitzStatic方法返回类型是timezone而不是OffsetResult,所以进行判别是否为空后,不能直接令result.zoneid
-	12:进入timezone类进行代码查看,有getID()方法,因此确定下来zoneId = yoxi != null ? yoxi.getID() : null;
+	11:zoneId = ?的语句确认,因为guessZoneByNitzStatic方法返回类型是timezone而不是OffsetResult,所以进行判别是否为空后,不能直接令
+result.zoneid12:进入timezone类进行代码查看,有getID()方法,因此确定下来zoneId = yoxi != null ? yoxi.getID() : null;
 	13:修改完成,进行本地编译
