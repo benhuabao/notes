@@ -1,28 +1,4 @@
-O上的方法在P版本上已经没有,P版本不能直接按照O的修改Porting的情况(括号内为NITZ的Porting举例)
-	1:在O上找到修改的代码所属的方法,然后找到调用该方法的方法(所属fixTimeZone(),被pollStateDone()调用)
-	2:在P上找到调用方法(pollStateDone()),根据代码逻辑找到相对应的,处理相关逻辑的代码(根据注释update -
-TimeZone/方法名等,找到 mNitzState.handleNetworkCountryCodeSet(countryChanged);),
-	3:跳转到对应的类的方法(NitzStateMachine.java的handleNetworkCountryCodeSet(countryChanged)),继续
-找相对应的修改的地方,
-	4:和O修改的地方继续对应,找到了应该修改代码的地方
-	5:具体修改(前面有情形同样调用了相同的代码,参考其修改后的代码,最简单的就是直接将那段代码直接复制到
-需要修改处.)
-	6:按样子修改以后,编译报错(frameworks/opt/telephony/src/java/com/android/internal/telephony/NitzStateMachine.java:354: 
-错误: 无法从静态上下文中引用非静态 方法 lookupByNitz(NitzData)),因为OPUtils.
-isATT()是静态方法,而前文直接照搬的代码是非静态
-	7:继续看照搬代码的逻辑()
-OffsetResult lookupResult = mTimeZoneLookupHelper.lookupByNitz(mLatestNitzSignal.mValue);zoneId = lookupResult != null ? 
-lookupResult.zoneId : null;
-	8:跳转到TimeZoneLookupHelper类,看到了最终调用的静态方法,就直接调用那个方法lookupByNitzStatic(NitzData nitzData),(但是又报
-错了,因为是这虽然是一个static方法,但是是private的)
-	9,因此需要找一个static的,并且在调用lookupByNitzStatic(NitzData nitzData)方法的方法,满足条件的只有static TimeZone 
-guessZoneByNitzStatic(NitzData nitzData)
-	10:因此需要将Porting处需要填入guessZoneByNitzStatic方法
-	11:zoneId = ?的语句确认,因为guessZoneByNitzStatic方法返回类型是timezone而不是OffsetResult,所以进行判别是否为空后,不能直接令
-result.zoneid12:进入timezone类进行代码查看,有getID()方法,因此确定下来zoneId = yoxi != null ? yoxi.getID() : null;
-	13:修改完成,进行本地编译
-
------------------------------------------------------------------------------------------------------------------------------------
+------------------------------
 review了之前Porting任务Task90747(068-024 -001),
 该Porting是一个时区相关的Porting,但因为O上的原生方法getNitzTimeZone在P版本上已经没有了,因此需要查看代码逻辑,找到如何修改代码.
 以下是今天总结的本次Porting的流程,对未来的一些Porting问题有一定参考性
