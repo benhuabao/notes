@@ -1,3 +1,6 @@
+pollState:向RIL对象发起getOperrator获取电信运营基本信息
+pollStateDone:根据pollState结果,完成对ServiceState对象的更新
+本次Porting就是一个电信基本信息的更新(时区)
 ------------------------------
 review了之前Porting任务Task90747(068-024 -001),
 该Porting是一个时区相关的Porting,但因为O上的原生方法getNitzTimeZone在P版本上已经没有了,因此需要查看代码逻辑,找到如何修改代码.
