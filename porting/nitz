@@ -1,0 +1,23 @@
+pollState:向RIL对象发起getOperrator获取电信运营基本信息
+pollStateDone:根据pollState结果,完成对ServiceState对象的更新
+本次Porting就是一次电信基本信息的更新(时区)
+------------------------------
+review了之前Porting任务Task90747(068-024 -001),
+该Porting是一个时区相关的Porting,但因为O上的原生方法getNitzTimeZone在P版本上已经没有了,因此需要查看代码逻辑,找到如何修改代码.
+以下是今天总结的本次Porting的流程,对未来的一些Porting问题有一定参考性
+	1:O:在O的代码上找到所修改(新增)的代码所属方法fixTimeZone(),以及调用该方法的方法pollStateDone().
+	2:P:在P的代码上找到pollStateDone()方法,根据代码逻辑,找到相对应的,处理时区相关的代码(根据注释/方法名等可以较快速定位),定位到
+mNitzState.handleNetworkCountryCodeSet(countryChanged);
+	3:P:根据定位,跳转到对应类的方法NitzStateMachine.java的handleNetworkCountryCodeSet(countryChanged)中,继续寻找对应的修改位置
+	4:P:找到了具体修改位置,开始进行修改,(该方法中有一个情形,刚好在O上也是同样调用了zone = getNitzTimeZone(mZoneOffset, mZoneDst, 
+mZoneTime);方法,因此理所当然的,将其在P上的修改后代码直接复制,到我们Porting的修改地方)
+	5:确认无语法错误后,进行编译.  然后报错(无法从静态上下文中引用非静态),
+	6:查看代码,在判断条件中OPUtils.isATT()方法是STATIC的,因此后续使用的方法都应该是STATIC,而OffsetResult lookupResult =
+mTimeZoneLookupHelper.lookupByNitz(mLatestNitzSignal.mValue);是非STATIC方法,所以应该对方法进行修改.
+	7:跳转到TimeZoneLookupHelper类中的lookupByNitz(mLatestNitzSignal.mValue)方法,发现该方法直接调用了一个STATIC方法
+lookupByNitzStatic(),因此直接用STATIC方法替代,
+	8:编译再次出错(lookupByNitzStatic(NitzData)可以在TimeZoneLookupHelper中访问private),因为该方法STATIC但缺失private的
+	9:因此只能在该类中找一个既是STATIC,又不是private的,同时还调用了lookupByNitzStatic(NitzData)的方法,于是符合条件的只有
+guessZoneByNitzStatic()
+	11:找到了guessZoneByNitzStatic()方法,最后再注意一个小坑,其返回类型是timezone,要获取ID需要用getID()而不是其他方法的直接.zoneID
+	12:修改完成,编译成功.
