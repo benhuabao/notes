@@ -1,8 +1,0 @@
-正则表达式
-	正则表达式可以对字符串进行查找,提取,分割,替换等操作
-String类也提供了几个特殊方法:
-	1:matches(String str):判断字符串是否匹配指定正则表达式
-	2:replaceAll(String str1,String str2):返回字符串中所有匹配正则表达式的子串str1替换成str2后的新字符串
-	3:replaceFirst(String str1,String str2):返回夫第一个匹配正则表达式的str1被替换成str2后的新字符串
-	4:split(String str1):根据给定正则表达式拆分该字符串后得到的字符串数组.
- 
