@@ -1,0 +1,5 @@
+commit 1
+<<<<<<< HEAD
+=======
+commit 3
+>>>>>>> 3120c14c105a69c287ebe8ec26a0cdaa24c43276
