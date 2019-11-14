@@ -1,2 +1,1 @@
-local code1
 github code
