@@ -1,0 +1,31 @@
+[color]
+        ui = auto
+[user]
+#        name = Feng Chao
+#        email = fengchao0223@thundersoft.com
+#       name = hutc0513.ts
+#       email = hutc0513@kk.jp.panasonic.com
+        name = zhongq0408.ts
+        email = zhongq0408@kk.jp.panasonic.com
+#[url "git@192.168.87.97:GIT-RM172"]
+#[url "https://spdggit.eww.panasonic.com/GIT-RM172"]
+#        insteadof = https://spdggit.eww.panasonic.com/GIT-RM172
+#        insteadof = https://source.codeaurora.org/quic/la
+[url "git@192.168.87.97:"]
+      InsteadOf = https://spdggit.eww.panasonic.com/
+
+[url "https://spdggit.eww.panasonic.com/GIT-RM181"]
+      pushInsteadOf = ssh://zhongq0408@spdggit.eww.panasonic.com:29418
+
+#[url "https://spdggit.eww.panasonic.com/GIT-RM181"]
+#       pushInsteadOf = ssh://hutc0513@spdggit.eww.panasonic.com:29418
+
+[http]
+       sslVerify = false
+
+[alias]
+        sta = status
+[core]
+    fileMode = false
+        editor = vim
+~                        

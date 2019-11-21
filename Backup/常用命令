@@ -1,0 +1,92 @@
+输入法崩溃
+killall fcitx
+----------------------------------------------
+更新、编译代码
+repo sync -cdj4 --no-tags && ./TCD_BUILD.sh -v userdebug -j12
+----------------------------------------------------
+夏普24服务器
+ssh telephony@164.69.136.143
+密码：telephony
+---------------------------------------------------------
+adb 屏幕截图
+adb shell /system/bin/screencap -p /sdcard/screenshot.png     （保存到SDCard）
+adb pull /sdcard/screenshot.png /home/user/桌面     （保存到电脑）
+---------------------------------------------------------
+夏普24编译
+. build/envsetup.sh
+
+lunch        -----选8. OE6_000T_FIH-userdebug
+
+make -j4 Dialer
+
+sftp://ssh telephony@192.168.80.24
+-----------------------------------------------------------
+monitor在SDK里头
+------------------------------------------------------------
+东西是资源文件的时候，不适用grep，
+find ./ -name quantum_ic_call_received_white_24*
+---------------------------------------------------------------
+git push ssh://SHARP_TS_Tel_App_Eng@10.24.71.41:29418/FIH/QC/platform/packages/apps/Contacts HEAD:refs/for/OE6/dev/MSM8909/31100041/PFAO
+
+git push ssh://SHARP_TS_Tel_App_Eng@10.24.71.41:29418/FIH/QC/platform/packages/apps/Dialer HEAD:refs/for/OE6/dev/MSM8909/31100041/PFAO
+
+git push ssh://SHARP_TS_Tel_App_Eng@10.24.71.41:29418/FIH/QC/platform/packages/apps/Mms HEAD:refs/for/OE6/dev/MSM8909/31100041/PFAO
+
+----------------------------
+<item name="android:statusBarColor">#FFF2F4F5</item>：修改状态栏颜色
+-------------------------------
+ 
+------------
+android:textStyle="bold" 加粗字体
+---------------------------------
+git log --pretty=oneline -n 
+查看提交
+-------------------
+git  reset --hard XXXXX
+回退版本
+---------------------
+ssh telephony@164.69.136.85
+松下服务器地址
+--------------------------------
+git format-patch  *****
+git am
+$ git format-patch <r1>..<r2>                                              #生成两个commit间的修改的patch（包含两个commit. <r1>和<r2>都是具体的commit号)
+$ git format-patch -1 <r1>                                                   #生成单个commit的patch
+$ git format-patch <r1>                                                       #生成某commit以来的修改patch（不包含该commit）
+
+-----------------
+只下载一个库
+repo sync --no-tags (manifest.xml里面库的name)
+-------------------------------------------------
+镜像
+sshfs telephony@164.69.136.85:/home/telephony/ssd .
+------------------------------------------------
+查找历史命令
+ctrl+r，继续往前搜索继续ctrl+r
+
+
+------------------------------------------------------------------------
+全编译烧机:
+sudo adb reboot bootloader
+sudo fastboot flash aboot emmc_appsboot.mbn
+sudo fastboot flash boot boot.img
+sudo fastboot flash cache cache.img
+sudo fastboot flash persist persist.img
+sudo fastboot flash recovery recovery.img
+sudo fastboot flash system system.img
+sudo fastboot flash userdata userdata.img
+sudo fastboot flash vendor vendor.img
+sudo fastboot reboot
+
+大部分只用烧system.img和userdata.img就可以了
+本地编译之后image生成目录:
+PF_Freya/out/target/product/FZ-T1VUN
+--------------------------
+List of devices attached
+1,开发者模式，打开usb调试
+2，adb kill-server
+sudo adb start-server
+adb devices
+---------------------------
+删除文件
+svn delete
