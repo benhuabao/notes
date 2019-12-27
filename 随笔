@@ -1,0 +1,60 @@
+RILJ最核心的代码主要有三个，分别是CommandsInterface.java，BaseCommands.java，和RIL.java这三个类 
+
+APN中，createAllApnList()  
+	1）读取数据库中与卡的mcc与mnc相同的apn，并且add到mAllApnSettings中，
+	显示APN的查询条件是 1）与sim卡同mcc，mnc,2)type不是ia，3）apn不是空字符，4）user_visible不为0，即可以显示。
+
+TelecomManager.java：
+	提供对有关呼叫和注册/呼叫管理功能的信息的访问，应用程序可以通过使用此类中的方法确定当前调用状态（外部模块通过这里定义的API可以访问到Telecom的服务，主要是用于进程间通信的）
+
+TelephonyProvicer的作用：
+	1，短彩信的数据库操作，2，APN的数据库操作，3，SIM Info的数据库操作
+
+手机开机会初始化phone对象，是建立什么对象？
+	根据ro.telephony.default_network来决定创建什么类型的phone对象
+	
+MCC：移动国家号码
+MNC：移动网络号码
+SID:系统识别号
+PLMN：公共陆地移动网络（由MCC与MNC组成）
+
+SIM卡信息SubscriptionInfo，比如说iccid（电话号码），MNC，MCC等，多张SIM卡有多张mSubscriptionInfo
+
+@GsmUmtsOptions 是接入点名称选项菜单 
+@ApnSettings.fillList  apn列表界面
+@ApnPreference 一行apn选项
+
+-----------------------
+shell脚本
+简单说，由Linux命令和Shell语言规范而组成的一些列字符 我们叫做she'll脚本
+
+在she'll中标记语句结束的方法有两种（;或者换行）
+
+shell语言是一门弱语言，所以变量无需定义可以直接使用，
+
+关系运算符 -eq 检查两个数是否相等，相等则返回true
+	-ne  检测是否不相等，不相等则返回true
+	-gt 检测左边是否大于右边，是就返回true
+	-lt 检测左边是否小于右边，是就返回true
+	-ge 检测左边是否大于等于右边的，是就返回true
+	-le 检测左边的数是否小于等于右边的，是就返回true
+
+
+181p-1023
+
+我们需要配置一个运营商信息的时候，则需要添加一个carrier_config_xxxx.xml文件到package/app/CarrierConfig/assets/中。此文件将会在onLoadConfig()中被加载
+numeric = mcc + mnc
+	
+Android.mk
+LOCAL_MODULE_TAGS可以有四个取值
+	user: 指该模块只在user版本下才编译
+	eng: 指该模块只在eng版本下才编译
+	tests: 指该模块只在tests版本下才编译
+	optional: 指该模块在所有版本下都编译
+
+PRODUCT_PACKAGES 优先级大于LOCAL_MODULE_TAGS，PRODUCT_PACKAGES制定要编译该模块，最终都会生成，这部分生成的apk是用户删不掉的
+
+
+java应用中的四大组件都是由Java代码写成的
+
+
