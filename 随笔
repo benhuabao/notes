@@ -43,7 +43,7 @@ shell语言是一门弱语言，所以变量无需定义可以直接使用，
 181p-1023
 
 我们需要配置一个运营商信息的时候，则需要添加一个carrier_config_xxxx.xml文件到package/app/CarrierConfig/assets/中。此文件将会在onLoadConfig()中被加载
-numeric = mcc + mnc
+numeric = mcc + mnc	/operator numeric (MCCMNC)
 	
 Android.mk
 LOCAL_MODULE_TAGS可以有四个取值
@@ -57,4 +57,37 @@ PRODUCT_PACKAGES 优先级大于LOCAL_MODULE_TAGS，PRODUCT_PACKAGES制定要编
 
 java应用中的四大组件都是由Java代码写成的
 
+Resource提供了如下两类方法， getXXX(int id):根据资源清单ID来获取实际资源
+getAssets():获取访问/asset/目录下资源的AssetManager对象
+Resource由Context调用getResource()方法中来获取
 
+ java中添加打印
+import android.util.Log;
+	 使用Log.v()、Log.d()、Log.i()、Log.w()、Log.e()
+
+如果我们想让应用中全部窗口使用该主题，只要在<application.../>元素添加android:theme属性。
+如果只是想让某一个Activity拥有这个主题，那么同样在<activity...>中添加android:theme属性。
+
+美国是na,VZW与ATT都属于NA
+
+DialerSettingsActivity.java (Phone setting screen)
+CallFeaturesSetting.java(Phone setting--Call screen)
+
+KeyEvent event(表示按键事件)
+
+intent.setClass(this, SimLockDialog.class);表示intent调用这个类，有动作才会调用，这是显式调用
+或者隐式跳转，要在配置文件里面配置好。
+
+
+PackageManagerService.java里面是apk编译了，不会显示出来
+配置文件里面是，不会编译成APK
+
+安卓页面跳转实现方法有主要两种
+1：Intent, 显式或者隐式，适合Activity之间的跳转
+	显式直接：Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
+	隐式：隐式并不会明确支出将要启动的activity，而是制定一些列抽象的action，category等信息，然后系统分析intent的意图，最后找到合适的activity去启动
+1）隐式需要在AndroidManifest.xml文件里面进行Activity启动方式的修改，intent-filter，action，category
+2）在Activity中的启动方式Intent intent = new Intent("com.example.administrator.activitytest.ACTION_START");startActivity(intent);
+
+2：setContentView
+适合同一Activity里面的不同view之间跳转，当时做夏普项目的时候老是遇见，在oncreate()方法中
