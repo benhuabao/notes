@@ -1,0 +1,13 @@
+P中,telephony中有两个描述通话的抽象类,Connction.
+一个是来自FW,一个来自与teleservice 
+前者封装了来自于modem或者SIP会话中获取的信息,
+后者定义了处理来自teleservice的"通话控制请求"的公共接口,是对前者的封装
+防止无效操作对通话连接点的影响,具体实现见39页,
+
+通话状态见41,
+通话状态源于modem的改变,并且将其通知到tele各方面(telephony fw,telecom service,telecom fw),
+但是上述的通话状态只在tele内部使用,为了使外界能够调用该状态,fw就将 telephony fw的状态写进TelephonyManager
+里面,供其他的程序调用.
+
+
+在挂断的时候如果是远端挂的话 ,直接是disconnected ,只有自己主动挂的时候才会有disconnectting

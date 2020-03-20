@@ -91,3 +91,9 @@ PackageManagerService.java里面是apk编译了，不会显示出来
 
 2：setContentView
 适合同一Activity里面的不同view之间跳转，当时做夏普项目的时候老是遇见，在oncreate()方法中
+--------------------------
+SIM卡不识别,在日志里面就观察
+get_sim
+或者get_slot
+
+UiccSlot.java 物理卡槽
